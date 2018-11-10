@@ -1,0 +1,22 @@
+{
+    "python.pythonPath": "${workspaceFolder}/.venv/bin/python",
+    "python.linting.pep8Enabled": true,
+    "python.linting.pep8Args": [
+        "--ignore=E501"
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintPath": "${workspaceFolder}/.venv/bin/pylint",
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django",
+        "--disable=C0111"
+    ],
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*pyc": true
+    }
+}
