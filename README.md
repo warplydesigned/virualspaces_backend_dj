@@ -23,16 +23,6 @@ Backend Django API for Virtual Spaces Project
     - Headers: 'Authorization: JWT token_from_login_step_1'
     - Required
         - current_password sent as data
-    - NOTE: Had to locally fix bug in rest_framework_jwt.utils.jwt_get_secret_key line 26 to handle when
-    a deleted user token is used to try and login.
-    ```
-    try:
-        user = User.objects.get(pk=payload.get('user_id'))
-    except User.DoesNotExist:
-        raise jwt.InvalidTokenError()
-    else:
-        return str(api_settings.JWT_GET_USER_SECRET_KEY(user))
-    ```
 
 5. Reset password - POST (TODO: Change email template)
     - /api/user/password/reset/
