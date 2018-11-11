@@ -50,6 +50,8 @@ THIRD_PARTY_APPS = [
 
 CUSTOM_APPS = [
     'virtualspaces.account',
+    'virtualspaces.otp',
+    'virtualspaces.core',
 ]
 
 INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
