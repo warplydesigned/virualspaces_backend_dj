@@ -11,6 +11,8 @@ CORE_APPS = [
     'django.contrib.staticfiles',
 ]
 
+INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',

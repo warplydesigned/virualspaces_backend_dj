@@ -56,9 +56,9 @@ def jwt_otp_payload(user, device=None):
 
     # custom additions
     is_user_and_device = user is not None and device is not None
-    is_users_device = device.user_id == user.id
-    is_device_confirmed = device.confirmed is True
-    if is_user_and_device and is_users_device and is_device_confirmed:
+    is_users_device = is_user_and_device and device.user_id == user.id
+    is_device_confirmed = is_users_device and device.confirmed is True
+    if is_device_confirmed:
         payload['otp_device_id'] = device.persistent_id
     else:
         payload['otp_device_id'] = None

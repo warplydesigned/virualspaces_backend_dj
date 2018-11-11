@@ -12,6 +12,6 @@ from virtualspaces.otp import urls as otp_urls
 
 urlpatterns = [
     path('', include(core_urls)),
-    path('api', include(account_urls)),
-    path('api', include(otp_urls)),
+    path('api/', include(account_urls)),
+    path('api/', include(otp_urls)),
 ]
