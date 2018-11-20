@@ -9,7 +9,8 @@ from rest_framework.response import Response
 from djoser.views import UserView as DjoserUserView, UserDeleteView as DjoserUserDeleteView
 from djoser import serializers
 
-from virtualspaces.account.models import CustomUser
+from .models import CustomUser
+from .serializers import UserSerializer
 from virtualspaces.otp import permissions as otp_permissions
 
 
@@ -19,7 +20,7 @@ class UserView(DjoserUserView):
     Use this endpoint to retrieve/update user.
     """
     model = CustomUser
-    serializer_class = serializers.UserSerializer
+    serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated, otp_permissions.IsOtpVerifed]
 
 

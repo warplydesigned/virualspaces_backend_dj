@@ -8,7 +8,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.utils.translation import gettext_lazy as _
 
-from .models import CustomUser
+from .models import CustomUser, Profile
 
 
 class UserCreationForm(forms.ModelForm):
@@ -102,8 +102,13 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
+class ProfileInlineAdmin(admin.StackedInline):
+    model = Profile
+
+
 @admin.register(CustomUser)
 class UserAdmin(BaseUserAdmin):
+    inlines = [ProfileInlineAdmin]
     form = UserChangeForm
     add_form = UserCreationForm
 
