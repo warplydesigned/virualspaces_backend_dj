@@ -52,6 +52,7 @@ CUSTOM_APPS = [
     'virtualspaces.account',
     'virtualspaces.otp',
     'virtualspaces.core',
+    'virtualspaces.spaces',
 ]
 
 INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
@@ -135,6 +136,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# MEDIA CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = os.path.join(BASE_DIR, "../media")
+MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'account.CustomUser'
 
