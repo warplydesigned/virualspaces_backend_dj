@@ -9,6 +9,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 
 class UserManager(BaseUserManager):
@@ -71,3 +72,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 def jwt_get_secret_key(user_model):
     return user_model.jwt_secret
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+    display_name = models.CharField(max_length=155, null=True, blank=True)
+    profile_image = models.ImageField(null=True, blank=True)
+    about = models.TextField(null=True, blank=True)

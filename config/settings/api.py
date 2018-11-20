@@ -25,6 +25,9 @@ ROOT_URLCONF = 'config.urls.api'
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'SERIALIZERS': {
+        'user': 'djoser.serializers.UserSerializer',
+    }
 }
 
 REST_FRAMEWORK = {
