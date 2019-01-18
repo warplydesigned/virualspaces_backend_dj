@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+
+class MessageInline(admin.TabularInline):
+    model = models.Message
+
+
+@admin.register(models.MessageThread)
+class MessageThreadAdmin(admin.ModelAdmin):
+    inlines = [MessageInline]

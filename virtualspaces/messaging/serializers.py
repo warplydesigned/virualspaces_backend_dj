@@ -27,7 +27,7 @@ class MessageThreadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.MessageThread
-        fields = ('id', 'last_message', 'unread_count')
+        fields = ('id', 'room_id', 'space', 'participants', 'last_message', 'unread_count')
 
 
 class MessageThreadListSerializer(serializers.ListSerializer):

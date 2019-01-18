@@ -3,6 +3,7 @@ from uuid import uuid4
 
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 
 class Space(models.Model):
@@ -32,6 +33,10 @@ class Space(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def book_space(self, details):
+        booking = SpaceBooking()
+        success = booking.setup_booking(details)
+
 
 def get_space_image_upload_path(instance, filename):
     ext = filename.split('.')[-1]
@@ -44,6 +49,9 @@ class SpaceImage(models.Model):
     original_image = models.ImageField(upload_to=get_space_image_upload_path)
     description = models.TextField(null=True, blank=True)
     order = models.IntegerField(default=0)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['order']
@@ -62,3 +70,45 @@ class SpaceImage(models.Model):
     def delete(self, *args, **kwargs):
         self.original_image.storage.delete(self.original_image.name)
         super(SpaceImage, self).delete(*args, **kwargs)
+
+
+class SpaceBooking(models.Model):
+    PENDING = 0
+    ACCEPTED = 1
+    REJECTED = 2
+    CANCELED = 3
+    STATUS_CHOICES = (
+        (PENDING, "Pending Request"),
+        (ACCEPTED, "Accepted Request"),
+        (REJECTED, "Rejected Request"),
+        (CANCELED, "Canceled Request")
+    )
+
+    class Details:
+        requested_by_id = None
+        guests = None
+        rate = None
+        from_date = None
+        to_date = None
+        requested_by = None
+        full_day = None
+        comments = None
+
+    space = models.ForeignKey(Space, on_delete=models.CASCADE)
+    requested_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
+    full_day = models.BooleanField(default=False)
+    from_date = models.DateTimeField(default=timezone.now)
+    to_date = models.DateTimeField(default=timezone.now, null=True, blank=True)
+    guests = models.IntegerField()
+    rate = models.IntegerField()
+    comments = models.TextField(null=True, blank=True)
+    total = models.IntegerField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def setup_booking(self, details):
+        for key in details:
+            if details[key] is not None:
+                setattr(self, key, details[key])
