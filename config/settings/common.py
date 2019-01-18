@@ -53,6 +53,7 @@ CUSTOM_APPS = [
     'virtualspaces.otp',
     'virtualspaces.core',
     'virtualspaces.spaces',
+    'virtualspaces.messaging',
 ]
 
 INSTALLED_APPS = CORE_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
